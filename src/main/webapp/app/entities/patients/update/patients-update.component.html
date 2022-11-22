@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-patients-heading" data-cy="PatientsCreateUpdateHeading" jhiTranslate="myLittleComptaApp.patients.home.createOrEditLabel">
+        Créer ou éditer un Patients
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myLittleComptaApp.patients.firstName" for="field_firstName">First Name</label>
+          <input type="text" class="form-control" name="firstName" id="field_firstName" data-cy="firstName" formControlName="firstName" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myLittleComptaApp.patients.lastName" for="field_lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="field_lastName" data-cy="lastName" formControlName="lastName" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myLittleComptaApp.patients.age" for="field_age">Age</label>
+          <input type="text" class="form-control" name="age" id="field_age" data-cy="age" formControlName="age" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myLittleComptaApp.patients.schoolClass" for="field_schoolClass">School Class</label>
+          <input
+            type="text"
+            class="form-control"
+            name="schoolClass"
+            id="field_schoolClass"
+            data-cy="schoolClass"
+            formControlName="schoolClass"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myLittleComptaApp.patients.school" for="field_school">School</label>
+          <input type="text" class="form-control" name="school" id="field_school" data-cy="school" formControlName="school" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

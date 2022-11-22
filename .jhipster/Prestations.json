@@ -1,0 +1,36 @@
+{
+  "applications": ["myLittleCompta"],
+  "changelogDate": "20221122190546",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "prestations",
+  "fields": [
+    {
+      "fieldName": "label",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "minutesDuration",
+      "fieldType": "Duration"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Float"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Prestations",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "seances",
+      "otherEntityRelationshipName": "prestations",
+      "ownerSide": false,
+      "relationshipName": "seances",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}

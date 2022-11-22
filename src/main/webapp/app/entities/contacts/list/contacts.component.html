@@ -1,0 +1,127 @@
+<div>
+  <h2 id="page-heading" data-cy="ContactsHeading">
+    <span jhiTranslate="myLittleComptaApp.contacts.home.title">Contacts</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="myLittleComptaApp.contacts.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-contacts"
+        [routerLink]="['/contacts/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="myLittleComptaApp.contacts.home.createLabel"> Créer un nouveau Contacts </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="contacts?.length === 0">
+    <span jhiTranslate="myLittleComptaApp.contacts.home.notFound">Aucun Contacts trouvé</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="contacts && contacts.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="firstName">
+            <div class="d-flex">
+              <span jhiTranslate="myLittleComptaApp.contacts.firstName">First Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="lastName">
+            <div class="d-flex">
+              <span jhiTranslate="myLittleComptaApp.contacts.lastName">Last Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="phoneNumber">
+            <div class="d-flex">
+              <span jhiTranslate="myLittleComptaApp.contacts.phoneNumber">Phone Number</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="address">
+            <div class="d-flex">
+              <span jhiTranslate="myLittleComptaApp.contacts.address">Address</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="relationType">
+            <div class="d-flex">
+              <span jhiTranslate="myLittleComptaApp.contacts.relationType">Relation Type</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="patients.id">
+            <div class="d-flex">
+              <span jhiTranslate="myLittleComptaApp.contacts.patients">Patients</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contacts of contacts; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/contacts', contacts.id, 'view']">{{ contacts.id }}</a>
+          </td>
+          <td>{{ contacts.firstName }}</td>
+          <td>{{ contacts.lastName }}</td>
+          <td>{{ contacts.phoneNumber }}</td>
+          <td>{{ contacts.address }}</td>
+          <td jhiTranslate="{{ 'myLittleComptaApp.RelationType.' + contacts.relationType }}">{{ contacts.relationType }}</td>
+          <td>
+            <div *ngIf="contacts.patients">
+              <a [routerLink]="['/patients', contacts.patients.id, 'view']">{{ contacts.patients.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/contacts', contacts.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/contacts', contacts.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+              </button>
+
+              <button type="submit" (click)="delete(contacts)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -30,7 +30,19 @@ management:
       base-path: /management
       exposure:
         include:
-          ['configprops', 'env', 'health', 'info', 'jhimetrics', 'jhiopenapigroups', 'logfile', 'loggers', 'prometheus', 'threaddump']
+          [
+            'configprops',
+            'env',
+            'health',
+            'info',
+            'jhimetrics',
+            'jhiopenapigroups',
+            'logfile',
+            'loggers',
+            'prometheus',
+            'threaddump',
+            'caches',
+          ]
   endpoint:
     health:
       show-details: when_authorized
@@ -79,7 +91,7 @@ management:
 
 mongock:
   migration-scan-package:
-    - com.mycompany.myapp.config.dbmigrations
+    - com.mylittlecompta.config.dbmigrations
 
 spring:
   application:

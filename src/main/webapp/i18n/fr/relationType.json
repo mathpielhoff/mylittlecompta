@@ -1,0 +1,12 @@
+{
+  "myLittleComptaApp": {
+    "RelationType": {
+      "null": "",
+      "MERE": "MERE",
+      "PERE": "PERE",
+      "GRANDS": "GRANDS",
+      "PARENTS": "PARENTS",
+      "AUTRES": "AUTRES"
+    }
+  }
+}

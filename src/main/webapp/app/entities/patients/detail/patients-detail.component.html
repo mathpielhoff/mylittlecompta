@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="patients">
+      <h2 data-cy="patientsDetailsHeading"><span jhiTranslate="myLittleComptaApp.patients.detail.title">Patients</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ patients.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.patients.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ patients.firstName }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.patients.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ patients.lastName }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.patients.age">Age</span></dt>
+        <dd>
+          <span>{{ patients.age }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.patients.schoolClass">School Class</span></dt>
+        <dd>
+          <span>{{ patients.schoolClass }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.patients.school">School</span></dt>
+        <dd>
+          <span>{{ patients.school }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/patients', patients.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

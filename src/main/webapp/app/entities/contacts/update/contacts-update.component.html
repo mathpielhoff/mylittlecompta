@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-contacts-heading" data-cy="ContactsCreateUpdateHeading" jhiTranslate="myLittleComptaApp.contacts.home.createOrEditLabel">
+        Créer ou éditer un Contacts
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myLittleComptaApp.contacts.firstName" for="field_firstName">First Name</label>
+          <input type="text" class="form-control" name="firstName" id="field_firstName" data-cy="firstName" formControlName="firstName" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myLittleComptaApp.contacts.lastName" for="field_lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="field_lastName" data-cy="lastName" formControlName="lastName" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myLittleComptaApp.contacts.phoneNumber" for="field_phoneNumber">Phone Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="phoneNumber"
+            id="field_phoneNumber"
+            data-cy="phoneNumber"
+            formControlName="phoneNumber"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myLittleComptaApp.contacts.address" for="field_address">Address</label>
+          <input type="text" class="form-control" name="address" id="field_address" data-cy="address" formControlName="address" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myLittleComptaApp.contacts.relationType" for="field_relationType">Relation Type</label>
+          <select class="form-control" name="relationType" formControlName="relationType" id="field_relationType" data-cy="relationType">
+            <option [ngValue]="null">{{ 'myLittleComptaApp.RelationType.null' | translate }}</option>
+            <option *ngFor="let relationType of relationTypeValues" [value]="relationType">
+              {{ 'myLittleComptaApp.RelationType.' + relationType | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="myLittleComptaApp.contacts.patients" for="field_patients">Patients</label>
+          <select
+            class="form-control"
+            id="field_patients"
+            data-cy="patients"
+            name="patients"
+            formControlName="patients"
+            [compareWith]="comparePatients"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="patientsOption" *ngFor="let patientsOption of patientsSharedCollection">{{ patientsOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

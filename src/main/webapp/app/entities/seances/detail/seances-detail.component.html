@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="seances">
+      <h2 data-cy="seancesDetailsHeading"><span jhiTranslate="myLittleComptaApp.seances.detail.title">Seances</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ seances.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.seances.place">Place</span></dt>
+        <dd>
+          <span>{{ seances.place }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.seances.date">Date</span></dt>
+        <dd>
+          <span>{{ seances.date | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.seances.prestations">Prestations</span></dt>
+        <dd>
+          <div *ngIf="seances.prestations">
+            <a [routerLink]="['/prestations', seances.prestations.id, 'view']">{{ seances.prestations.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.seances.patients">Patients</span></dt>
+        <dd>
+          <div *ngIf="seances.patients">
+            <a [routerLink]="['/patients', seances.patients.id, 'view']">{{ seances.patients.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.seances.factures">Factures</span></dt>
+        <dd>
+          <div *ngIf="seances.factures">
+            <a [routerLink]="['/factures', seances.factures.id, 'view']">{{ seances.factures.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/seances', seances.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

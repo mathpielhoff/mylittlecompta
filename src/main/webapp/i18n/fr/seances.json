@@ -1,0 +1,28 @@
+{
+  "myLittleComptaApp": {
+    "seances": {
+      "home": {
+        "title": "Seances",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Seances",
+        "createOrEditLabel": "Créer ou éditer un Seances",
+        "notFound": "Aucun Seances trouvé"
+      },
+      "created": "Un nouveau Seances a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Seances avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Seances avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Seances {{ id }} ?"
+      },
+      "detail": {
+        "title": "Seances"
+      },
+      "id": "ID",
+      "place": "Place",
+      "date": "Date",
+      "prestations": "Prestations",
+      "patients": "Patients",
+      "factures": "Factures"
+    }
+  }
+}

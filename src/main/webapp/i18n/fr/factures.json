@@ -1,0 +1,28 @@
+{
+  "myLittleComptaApp": {
+    "factures": {
+      "home": {
+        "title": "Factures",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Factures",
+        "createOrEditLabel": "Créer ou éditer un Factures",
+        "notFound": "Aucun Factures trouvé"
+      },
+      "created": "Un nouveau Factures a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Factures avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Factures avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Factures {{ id }} ?"
+      },
+      "detail": {
+        "title": "Factures"
+      },
+      "id": "ID",
+      "number": "Number",
+      "emissionDate": "Emission Date",
+      "paidInvoice": "Paid Invoice",
+      "contacts": "Contacts",
+      "seances": "Seances"
+    }
+  }
+}
