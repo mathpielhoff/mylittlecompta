@@ -1,0 +1,27 @@
+{
+  "myLittleComptaApp": {
+    "prestations": {
+      "home": {
+        "title": "Prestations",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Prestations",
+        "createOrEditLabel": "Créer ou éditer un Prestations",
+        "notFound": "Aucun Prestations trouvé"
+      },
+      "created": "Un nouveau Prestations a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Prestations avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Prestations avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Prestations {{ id }} ?"
+      },
+      "detail": {
+        "title": "Prestations"
+      },
+      "id": "ID",
+      "label": "Label",
+      "minutesDuration": "Minutes Duration",
+      "price": "Price",
+      "seances": "Seances"
+    }
+  }
+}

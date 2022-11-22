@@ -15,7 +15,7 @@
 
 mongock:
   migration-scan-package:
-    - com.mycompany.myapp.config.dbmigrations
+    - com.mylittlecompta.config.dbmigrations
   mongo-db:
     read-concern: local
     write-concern:

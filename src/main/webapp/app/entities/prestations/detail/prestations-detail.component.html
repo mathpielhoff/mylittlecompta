@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="prestations">
+      <h2 data-cy="prestationsDetailsHeading"><span jhiTranslate="myLittleComptaApp.prestations.detail.title">Prestations</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ prestations.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.prestations.label">Label</span></dt>
+        <dd>
+          <span>{{ prestations.label }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.prestations.minutesDuration">Minutes Duration</span></dt>
+        <dd>
+          <span>{{ prestations.minutesDuration | duration }} ({{ prestations.minutesDuration }})</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.prestations.price">Price</span></dt>
+        <dd>
+          <span>{{ prestations.price }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/prestations', prestations.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

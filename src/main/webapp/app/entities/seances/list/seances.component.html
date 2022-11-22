@@ -1,0 +1,128 @@
+<div>
+  <h2 id="page-heading" data-cy="SeancesHeading">
+    <span jhiTranslate="myLittleComptaApp.seances.home.title">Seances</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="myLittleComptaApp.seances.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-seances"
+        [routerLink]="['/seances/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="myLittleComptaApp.seances.home.createLabel"> Créer un nouveau Seances </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="seances?.length === 0">
+    <span jhiTranslate="myLittleComptaApp.seances.home.notFound">Aucun Seances trouvé</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="seances && seances.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="place">
+            <div class="d-flex">
+              <span jhiTranslate="myLittleComptaApp.seances.place">Place</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="date">
+            <div class="d-flex">
+              <span jhiTranslate="myLittleComptaApp.seances.date">Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="prestations.id">
+            <div class="d-flex">
+              <span jhiTranslate="myLittleComptaApp.seances.prestations">Prestations</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="patients.id">
+            <div class="d-flex">
+              <span jhiTranslate="myLittleComptaApp.seances.patients">Patients</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="factures.id">
+            <div class="d-flex">
+              <span jhiTranslate="myLittleComptaApp.seances.factures">Factures</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let seances of seances; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/seances', seances.id, 'view']">{{ seances.id }}</a>
+          </td>
+          <td>{{ seances.place }}</td>
+          <td>{{ seances.date | formatMediumDatetime }}</td>
+          <td>
+            <div *ngIf="seances.prestations">
+              <a [routerLink]="['/prestations', seances.prestations.id, 'view']">{{ seances.prestations.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="seances.patients">
+              <a [routerLink]="['/patients', seances.patients.id, 'view']">{{ seances.patients.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="seances.factures">
+              <a [routerLink]="['/factures', seances.factures.id, 'view']">{{ seances.factures.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/seances', seances.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/seances', seances.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+              </button>
+
+              <button type="submit" (click)="delete(seances)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

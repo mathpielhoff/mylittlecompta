@@ -1,0 +1,42 @@
+{
+  "applications": ["myLittleCompta"],
+  "changelogDate": "20221122190543",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "factures",
+  "fields": [
+    {
+      "fieldName": "number",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "emissionDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "paidInvoice",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Factures",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "contacts",
+      "otherEntityRelationshipName": "factures",
+      "ownerSide": true,
+      "relationshipName": "contacts",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "seances",
+      "otherEntityRelationshipName": "factures",
+      "relationshipName": "seances",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="contacts">
+      <h2 data-cy="contactsDetailsHeading"><span jhiTranslate="myLittleComptaApp.contacts.detail.title">Contacts</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ contacts.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.contacts.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ contacts.firstName }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.contacts.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ contacts.lastName }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.contacts.phoneNumber">Phone Number</span></dt>
+        <dd>
+          <span>{{ contacts.phoneNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.contacts.address">Address</span></dt>
+        <dd>
+          <span>{{ contacts.address }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.contacts.relationType">Relation Type</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'myLittleComptaApp.RelationType.' + contacts.relationType }}">{{ contacts.relationType }}</span>
+        </dd>
+        <dt><span jhiTranslate="myLittleComptaApp.contacts.patients">Patients</span></dt>
+        <dd>
+          <div *ngIf="contacts.patients">
+            <a [routerLink]="['/patients', contacts.patients.id, 'view']">{{ contacts.patients.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/contacts', contacts.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+      </button>
+    </div>
+  </div>
+</div>
