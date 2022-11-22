@@ -1,0 +1,75 @@
+
+application {
+  config {
+    baseName myLittleCompta,
+    applicationType monolith,
+    packageName com.mylittlecompta,
+    authenticationType jwt,
+    databaseType mongodb,
+    clientFramework angular
+  }
+  entities *
+}
+
+entity Factures {
+	Number String,
+    EmissionDate ZonedDateTime,
+	PaidInvoice Boolean    
+}
+
+entity Patients {
+	FirstName String,
+    LastName String,
+    Age String,
+    SchoolClass String,
+    School String
+}
+
+entity Contacts {
+	FirstName String,
+    LastName String,
+    PhoneNumber String,
+    Address String,
+    RelationType RelationType,
+}
+
+enum RelationType {
+	MERE,
+    PERE,
+    GRANDS PARENTS,
+    AUTRES
+}
+
+entity Prestations {
+	Label String,
+    MinutesDuration Duration,
+    Price Float,
+}
+
+entity Seances {
+    Place String,
+    Date ZonedDateTime,
+}
+
+
+relationship OneToOne {
+  Seances to Prestations
+}
+
+
+relationship OneToMany {
+  Patients to Contacts
+}
+
+relationship OneToMany{
+	Patients to Seances
+}
+
+relationship OneToMany{
+	Factures to Seances
+}
+
+relationship OneToOne{
+	Factures to Contacts
+}
+    
