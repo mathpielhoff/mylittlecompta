@@ -85,13 +85,13 @@ IMG_UPLOAD_URL = '/static/uploads/'
 # you can create your own and easily use them placing them on the same dir structure to override
 # https://github.com/dpgaspar/Flask-AppBuilder/issues/504
 FAB_STATIC_FOLDER = basedir + "/app/static/appbuilder/"
-#APP_THEME = "bootstrap-theme.css"  # default bootstrap
+#APP_THEME = "bootstrap.css"  # default bootstrap
 #APP_THEME = "litera.css"
 #APP_THEME = "amelia.css"
 #APP_THEME = "cosmo.css"
 #APP_THEME = "cyborg.css"  
-#APP_THEME = "flatly.css"
-APP_THEME = "journal.css"
+APP_THEME = "flatly.css"
+#APP_THEME = "journal.css"
 #APP_THEME = "readable.css"
 #APP_THEME = "simplex.css"
 #APP_THEME = "slate.css"   
