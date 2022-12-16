@@ -30,10 +30,10 @@ class PatientModelView(ModelView):
 
 # Adding to Menu
 appbuilder.add_view(PatientModelView, "Liste des Patients",icon = "fa-folder-open-o",category = "Patients",
-                category_icon = "fa-envelope")
+                category_icon = "fa-thin fa-envelope")
 
 appbuilder.add_view(ContactModelView, "Liste des Contacts",icon = "fa-folder-open-o",category = "Patients",
-                category_icon = "fa-envelope")
+                category_icon = "fa-thin fa-envelope")
 
 """
     Application wide 404 error handler
