@@ -83,8 +83,10 @@ IMG_UPLOAD_URL = '/static/uploads/'
 # Theme configuration
 # these are located on static/appbuilder/css/themes
 # you can create your own and easily use them placing them on the same dir structure to override
-#APP_THEME = "bootstrap-theme.css"  # default bootstrap
-APP_THEME = "litera.css"
+# https://github.com/dpgaspar/Flask-AppBuilder/issues/504
+#FAB_STATIC_FOLDER = basedir + "/app/static/appbuilder/"
+#APP_THEME = "bootstrap.css"  # default bootstrap
+#APP_THEME = "litera.css"
 #APP_THEME = "amelia.css"
 #APP_THEME = "cosmo.css"
 #APP_THEME = "cyborg.css"  

@@ -2,8 +2,10 @@ import logging
 from flask import Flask
 from app.index import MyIndexView
 from flask_appbuilder.security.mongoengine.manager import SecurityManager
+from flask_appbuilder.menu import Menu
 from flask_appbuilder import AppBuilder
 from flask_mongoengine import MongoEngine
+from flask_bootstrap import Bootstrap5
 
 """
  Logging configuration
@@ -15,7 +17,13 @@ logging.getLogger().setLevel(logging.DEBUG)
 app = Flask(__name__)
 app.config.from_object('config')
 db = MongoEngine(app)
-appbuilder = AppBuilder(app, security_manager_class=SecurityManager, indexview=MyIndexView)
+bootstrap = Bootstrap5(app)
+appbuilder = AppBuilder(app, 
+    security_manager_class=SecurityManager, 
+    indexview=MyIndexView,
+    base_template='base.html',
+    menu=Menu(reverse=False)
+    )
 
 """
 from sqlalchemy.engine import Engine
