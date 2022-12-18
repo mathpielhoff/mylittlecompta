@@ -1,13 +1,25 @@
 from tkinter import CASCADE
+from xml.dom import ValidationErr
 from mongoengine import Document
 from mongoengine import DateTimeField, StringField, ReferenceField, ListField, EmailField, BooleanField, IntField
 from flask_security import UserMixin, RoleMixin
-
+import re
 """
 
 Define you MongoEngine Models here
 
 """
+PHONE_REGEX = '^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$'
+MAIL_REGEX = '([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
+
+def _valide_telephone(telephone):
+    if re.match(PHONE_REGEX, telephone) is None:
+        raise ValidationErr('Le telephone ne respecte pas le bon format')
+
+def _valide_email(email):
+    if re.match(MAIL_REGEX, email) is None:
+        raise ValidationErr('L email ne respecte pas le bon format')
+    
 # Model Role
 class Role(Document, RoleMixin):
     name = StringField(max_length=80, unique=True)
@@ -33,22 +45,10 @@ class User(Document, UserMixin):
 class Contact(Document):
     nom = StringField(required=True)
     prenom = StringField(required=True)
-    telephone = StringField(min_length=10, max_length=10, required=True)
-    email = EmailField(required=True)
-    
-    def validate(self, clean=True):
-        return super().validate(clean)
-        
-    def __unicode__(self):
-        return self.nom + ' ' +self.prenom
-
-    def __repr__(self):
-        return self.nom + ' ' + self.prenom
-
-    def __str__(self):
-        return self.nom + ' ' + self.prenom
-
-        
+    telephone = StringField(min_length=10, max_length=10, required=True, validation=_valide_telephone)
+    email = EmailField(required=True, validation=_valide_email)
+    adresse = StringField(required=True)
+      
 # Model Patient
 class Patient(Document):
     nom = StringField(required=True, max_length=60)

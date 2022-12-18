@@ -4,7 +4,7 @@ from flask_mongoengine import MongoEngine
 from flask_security import Security, MongoEngineUserDatastore, auth_required, hash_password
 from flask_restful import Resource, Api
 from flask_wtf.csrf import CSRFProtect
-from app.endpoint import ContactAPI
+from api.ContactAPI import ContactAPI
 
 # Custom imports
 from app.models import User, Role
