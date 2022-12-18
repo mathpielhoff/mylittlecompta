@@ -1,7 +1,7 @@
 from xml.dom import ValidationErr
 from flask_restful import reqparse, abort, Api, Resource
 from flask import current_app
-from flask_security import hash_password, login_required
+from flask_security import auth_required, login_required
 
 from app.models import Contact
 
@@ -12,13 +12,20 @@ parser.add_argument('telephone', location='json', required=True)
 parser.add_argument('email', location='json', required=True)
 parser.add_argument('adresse', location='json', required=True)
 
+parser.add_argument('id', location='args')
+
 
 class ContactAPI(Resource):
-    @login_required
+    @auth_required('token','session')
     def get(self):
-        
-        return 200
-    @login_required
+        req = parser.parse_args()
+        if not req.get('id') is None:
+            qs = Contact.objects().with_id(req.get('id'))
+            return qs.to_json(), 200
+        qs = Contact.objects
+        return qs.all_fields().to_json(), 200
+    
+    @auth_required('token','session')
     def post(self):
         req = parser.parse_args()
         new_contact = Contact(

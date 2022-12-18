@@ -20,6 +20,7 @@ SECURITY_REGISTERABLE = True
 SECURITY_UNIFIED_SIGNIN = False
 # These need to be defined to handle redirects
 # As defined in the API documentation - they will receive the relevant context
+
 SECURITY_POST_CONFIRM_VIEW = "/confirmed"
 SECURITY_CONFIRM_ERROR_VIEW = "/confirm-error"
 SECURITY_RESET_VIEW = "/reset-password"
@@ -34,6 +35,9 @@ SECURITY_CSRF_IGNORE_UNAUTH_ENDPOINTS = True
 SECURITY_CSRF_COOKIE_NAME = "XSRF-TOKEN"
 WTF_CSRF_CHECK_DEFAULT = False
 WTF_CSRF_TIME_LIMIT = None
+
+SECURITY_TOKEN_MAX_AGE = 10
+
 # ----- DEV ONLY ------
 SECURITY_REGISTERABLE = True
 
