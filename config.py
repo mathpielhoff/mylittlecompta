@@ -1,101 +1,52 @@
 import os
-from flask_appbuilder.security.manager import AUTH_OID, AUTH_REMOTE_USER, AUTH_DB, AUTH_LDAP
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+## Security Configuration
 # Your App secret key
 SECRET_KEY = 'ed66400a-8b65-43e1-b503-09dc95e8ee7c'
+# Generate a good salt using: secrets.SystemRandom().getrandbits(128)
+SECURITY_PASSWORD_SALT = '146585695368132386173505879516728509634'
+# no forms so no concept of flashing
+SECURITY_FLASH_MESSAGES = False
+# Need to be able to route backend flask API calls. Use 'accounts'
+# to be the Flask-Security endpoints.
+SECURITY_URL_PREFIX = '/api/accounts'
+# Turn on all the great Flask-Security features
+SECURITY_RECOVERABLE = True
+SECURITY_TRACKABLE = True
+SECURITY_CHANGEABLE = True
+SECURITY_CONFIRMABLE = False
+SECURITY_REGISTERABLE = True
+SECURITY_UNIFIED_SIGNIN = False
+# These need to be defined to handle redirects
+# As defined in the API documentation - they will receive the relevant context
 
+SECURITY_POST_CONFIRM_VIEW = "/confirmed"
+SECURITY_CONFIRM_ERROR_VIEW = "/confirm-error"
+SECURITY_RESET_VIEW = "/reset-password"
+SECURITY_RESET_ERROR_VIEW = "/reset-password"
+SECURITY_REDIRECT_BEHAVIOR = "spa"
+# CSRF protection is critical for all session-based browser UIs
+# enforce CSRF protection for session / browser - but allow token-based
+# API calls to go through
+SECURITY_CSRF_PROTECT_MECHANISMS = ["session", "basic"]
+SECURITY_CSRF_IGNORE_UNAUTH_ENDPOINTS = True
+# Send Cookie with csrf-token. This is the default for Axios and Angular.
+SECURITY_CSRF_COOKIE_NAME = "XSRF-TOKEN"
+WTF_CSRF_CHECK_DEFAULT = False
+WTF_CSRF_TIME_LIMIT = None
+
+SECURITY_TOKEN_MAX_AGE = 10
+
+# ----- DEV ONLY ------
+SECURITY_REGISTERABLE = True
+
+## Database Configuration
 # The MongoEngine connection string.
 MONGODB_SETTINGS = {'HOST': 'localhost',
                     'PORT': 27017,
                     'DB': 'maPetiteCompta'}
 
-# Flask-WTF flag for CSRF
+
 CSRF_ENABLED = True
-
-#------------------------------
-# GLOBALS FOR APP Builder 
-#------------------------------
-# Uncomment to setup Your App name
 APP_NAME = "maPetiteCompta"
-
-# Uncomment to setup Setup an App icon
-#APP_ICON = "static/img/logo.jpg"
-
-#----------------------------------------------------
-# AUTHENTICATION CONFIG
-#----------------------------------------------------
-# The authentication type
-# AUTH_OID : Is for OpenID
-# AUTH_DB : Is for database (username/password()
-# AUTH_LDAP : Is for LDAP
-# AUTH_REMOTE_USER : Is for using REMOTE_USER from web server
-AUTH_TYPE = AUTH_DB
-
-# Uncomment to setup Full admin role name
-#AUTH_ROLE_ADMIN = 'Admin'
-
-# Uncomment to setup Public role name, no authentication needed
-#AUTH_ROLE_PUBLIC = 'Public'
-
-# Will allow user self registration
-#AUTH_USER_REGISTRATION = True
-
-# The default user self registration role
-#AUTH_USER_REGISTRATION_ROLE = "Public"
-
-# When using LDAP Auth, setup the ldap server
-#AUTH_LDAP_SERVER = "ldap://ldapserver.new"
-
-# Uncomment to setup OpenID providers example for OpenID authentication
-#OPENID_PROVIDERS = [
-#    { 'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id' },
-#    { 'name': 'Yahoo', 'url': 'https://me.yahoo.com' },
-#    { 'name': 'AOL', 'url': 'http://openid.aol.com/<username>' },
-#    { 'name': 'Flickr', 'url': 'http://www.flickr.com/<username>' },
-#    { 'name': 'MyOpenID', 'url': 'https://www.myopenid.com' }]
-#---------------------------------------------------
-# Babel config for translations
-#---------------------------------------------------
-# Setup default language
-BABEL_DEFAULT_LOCALE = 'fr'
-# Your application default translation path
-BABEL_DEFAULT_FOLDER = 'translations'
-# The allowed translation for you app
-LANGUAGES = {
-    'en': {'flag':'gb', 'name':'English'},
-    'fr': {'flag':'fr', 'name':'Francais'}
-}
-#---------------------------------------------------
-# Image and file configuration
-#---------------------------------------------------
-# The file upload folder, when using models with files
-UPLOAD_FOLDER = basedir + '/app/static/uploads/'
-
-# The image upload folder, when using models with images
-IMG_UPLOAD_FOLDER = basedir + '/app/static/uploads/'
-
-# The image upload url, when using models with images
-IMG_UPLOAD_URL = '/static/uploads/'
-# Setup image size default is (300, 200, True)
-#IMG_SIZE = (300, 200, True)
-
-# Theme configuration
-# these are located on static/appbuilder/css/themes
-# you can create your own and easily use them placing them on the same dir structure to override
-# https://github.com/dpgaspar/Flask-AppBuilder/issues/504
-#FAB_STATIC_FOLDER = basedir + "/app/static/appbuilder/"
-#APP_THEME = "bootstrap.css"  # default bootstrap
-#APP_THEME = "litera.css"
-#APP_THEME = "amelia.css"
-#APP_THEME = "cosmo.css"
-#APP_THEME = "cyborg.css"  
-#APP_THEME = "flatly.css"
-#APP_THEME = "journal.css"
-#APP_THEME = "readable.css"
-#APP_THEME = "simplex.css"
-#APP_THEME = "slate.css"   
-#APP_THEME = "spacelab.css"
-#APP_THEME = "united.css"
-#APP_THEME = "yeti.css"
-
