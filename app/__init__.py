@@ -1,8 +1,8 @@
 import logging
-from flask import Flask, render_template_string
+from flask import Flask
 from flask_mongoengine import MongoEngine
-from flask_security import Security, MongoEngineUserDatastore, auth_required, hash_password
-from flask_restful import Resource, Api
+from flask_security import Security, MongoEngineUserDatastore
+from flask_restful import Api
 from flask_wtf.csrf import CSRFProtect
 from api.ContactAPI import ContactAPI
 
