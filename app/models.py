@@ -54,9 +54,9 @@ class Patient(Document):
     nom = StringField(required=True, max_length=60)
     prenom = StringField(required=True, max_length=60)
     dateDeNaissance = DateTimeField(required=True)
-    telephone = StringField(required=True, max_length=10)
+    telephone = StringField(required=True, max_length=10, validation=_valide_telephone)
     contacts = ListField(ReferenceField('Contact'))
-    adresseFacturation = StringField(required=True, max_length=100)
+    adresseFacturation = StringField(required=True, max_length=250)
     therapeute = ReferenceField('User')
 
 # Model Prestation
