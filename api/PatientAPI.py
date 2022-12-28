@@ -1,7 +1,7 @@
 from flask import session
 from flask_restful import reqparse, Resource
 from flask_security import login_required
-from app.models import Patient
+from app.models import Patient, Contact
 
 parser = reqparse.RequestParser()
 
@@ -52,4 +52,16 @@ class PatientAPI(Ressource):
             return {'message': err.args }, 400
 
 class PatientContactsAPI(Ressource):
+    @login_required
+    def post(self):
+        parser_copy = parser.copy()
+        parser_copy.replace_argument('id', required=True, location='args')
+        parser_copy.replace_argument('contacts', required=True, action=append, location='json')
+        
+        req = parser_copy.parse_args()
+        for id in req.get('contacts')
+            list_contacts.append(Contact.objects().with_id(id=id))
+
+
+
     
