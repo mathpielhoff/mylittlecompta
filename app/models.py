@@ -27,6 +27,7 @@ class Role(Document, RoleMixin):
     permissions = StringField(max_length=255)
 
 # Model User
+# Api from flask-security /api/accounts/login
 class User(Document, UserMixin):
     username = StringField(max_length=255, unique=True)
     email = StringField(max_length=255, unique=True)
