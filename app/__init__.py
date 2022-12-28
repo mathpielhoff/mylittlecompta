@@ -21,6 +21,8 @@ app.config.from_object('config')
 # Adding RestFull
 api = Api(app)
 api.add_resource(ContactAPI, '/api/contact')
+api.add_resource(PatientAPI, '/api/patient')
+
 # Adding Mongo
 db = MongoEngine(app)
 
