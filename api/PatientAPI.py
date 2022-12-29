@@ -1,8 +1,9 @@
-from flask import session
+from argparse import _AppendAction
 from flask_restful import reqparse, Resource
 from flask_security import login_required
 from flask_login import current_user
-from app.models import Patient, Contact, User
+from app.Models.Patient import Patient
+from app.Models.User import User
 
 parser = reqparse.RequestParser()
 
@@ -44,7 +45,7 @@ class PatientAPI(Resource):
             modif_patient = Patient.objects(
                 therapeute=User.objects(username=current_user.username).only('id').first(), 
                 id=req.get('id')
-                )
+                ).first()
             if not req.get('nom') is None:
                 modif_patient.update(nom=req.get('nom'))
             if not req.get('prenom') is None:
@@ -86,21 +87,6 @@ class PatientAPI(Resource):
             except Exception as err:
                 return {'message': err.args }, 400
         
-
-
-
-class PatientContactsAPI(Resource):
-    @login_required
-    def post(self):
-        parser_copy = parser.copy()
-        parser_copy.replace_argument('id', required=True, location='args')
-        parser_copy.replace_argument('contacts', required=True, action=append, location='json')
-        
-        req = parser_copy.parse_args()
-        list_contacts = Contact.objects()
-        for id in req.get('contacts'):
-            list_contacts.append(Contact.objects().with_id(id=id))
-
 
 
     

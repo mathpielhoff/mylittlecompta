@@ -4,11 +4,11 @@ from flask_mongoengine import MongoEngine
 from flask_security import Security, MongoEngineUserDatastore
 from flask_restful import Api
 from flask_wtf.csrf import CSRFProtect
-from api.ContactAPI import ContactAPI
-from api.PatientAPI import PatientAPI, PatientContactsAPI
+from api.CabinetAPI import CabinetAPI
+
 
 # Custom imports
-from app.models import User, Role
+from app.Models.User import User, Role
 
 """
  Logging configuration
@@ -21,9 +21,7 @@ app.config.from_object('config')
 
 # Adding RestFull
 api = Api(app)
-api.add_resource(ContactAPI, '/api/contact')
-api.add_resource(PatientAPI, '/api/patient')
-api.add_resource(PatientContactsAPI, '/api/patient/{id}/contacts')
+api.add_resource(CabinetAPI, '/api/cabinet')
 
 
 # Adding Mongo
