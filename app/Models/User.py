@@ -1,17 +1,24 @@
-from mongoengine import Document
-from mongoengine import DateTimeField, StringField, ReferenceField, ListField, BooleanField, IntField, DecimalField, EmbeddedDocumentField
+from datetime import datetime
+from mongoengine import Document, DateTimeField, StringField, ObjectIdField, ReferenceField, EmbeddedDocument, ListField, BooleanField, IntField, DecimalField, EmbeddedDocumentField, EmbeddedDocumentListField
 from flask_security import UserMixin, RoleMixin
 from app.Models.Patient import Adresse
 from app.utils import _valide_email, _valide_telephone
+from bson.objectid import ObjectId
 
-class Collaborateur(Document):
+class Collaborateur(EmbeddedDocument):
+    oid = ObjectIdField(required=True, default=ObjectId,
+                    unique=True, primary_key=True)
     user = ReferenceField('User')
     retrocession = DecimalField(min_value=0, max_value=100, precision=2)
+    actif = BooleanField(default=True)
+    dateDebutContrat = DateTimeField
+    dateFinContrat = DateTimeField
+    derniereDateMiseAJour = DateTimeField(default=datetime.utcnow)
 
 class Cabinet(Document):
     nomCabinet = StringField(max_length=100, required=True, unique=True)
     titulaires = ListField(ReferenceField('User'), required=True)
-    collaborateurs = ListField(ReferenceField('Collaborateur'))
+    collaborateurs = EmbeddedDocumentListField('Collaborateur')
     adresse = EmbeddedDocumentField(Adresse, required=True)
 
 

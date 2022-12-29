@@ -10,6 +10,10 @@ class LienParente(Enum):
     TUTEUR = 'Tuteur'
     AUTRE = 'Autre'
 
+class Genre(Enum):
+    MONSIEUR = "Monsieur"
+    MADAME = "Madame"
+
 class Adresse(EmbeddedDocument):
     ligne1 = StringField(required=True)
     ligne2 = StringField
@@ -20,6 +24,7 @@ class Adresse(EmbeddedDocument):
 
 # Model Parent
 class Parent(EmbeddedDocument):
+    genre = EnumField(Genre)
     nom = StringField(required=True)
     prenom = StringField(required=True)
     dateDeNaissance = DateTimeField(required=True)

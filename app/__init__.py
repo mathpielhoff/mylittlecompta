@@ -4,7 +4,7 @@ from flask_mongoengine import MongoEngine
 from flask_security import Security, MongoEngineUserDatastore
 from flask_restful import Api
 from flask_wtf.csrf import CSRFProtect
-from api.CabinetAPI import CabinetAPI
+from api.CabinetAPI import CabinetAPI, CollaborateursAPI
 
 
 # Custom imports
@@ -22,6 +22,7 @@ app.config.from_object('config')
 # Adding RestFull
 api = Api(app)
 api.add_resource(CabinetAPI, '/api/cabinet')
+api.add_resource(CollaborateursAPI, '/api/cabinet/<string:id>/collaborateurs')
 
 
 # Adding Mongo
