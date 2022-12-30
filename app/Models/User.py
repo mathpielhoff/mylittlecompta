@@ -32,10 +32,12 @@ class Role(Document, RoleMixin):
 # Model User
 # Api from flask-security /api/accounts/login
 class User(Document, UserMixin):
-    username = StringField(max_length=255, unique=True)
-    email = StringField(max_length=255, unique=True, validation=_valide_email)
-    password = StringField(max_length=255)
-    phone = StringField(min_length=10, max_length=10, validation=_valide_telephone)
+    username = StringField(max_length=255, required=True, unique=True)
+    email = StringField(max_length=255, required=True, unique=True, validation=_valide_email)
+    password = StringField(max_length=255, required=True )
+    phone = StringField(min_length=10, required=True,  max_length=10, validation=_valide_telephone)
+    dateDeNaissance = DateTimeField(required=True)
+    numeroAdeli = StringField(max_length=20, required=True)
     active = BooleanField(default=True)
     fs_uniquifier = StringField(max_length=64, unique=True)
     confirmed_at = DateTimeField()

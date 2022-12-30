@@ -139,12 +139,16 @@ class CollaborateursAPI(Resource):
     def get(self, cab_id):
         logging.debug(" -- starting get cabinet collaborateurs --")
         parser_copy = parser.copy()
-        parser_copy.replace_argument('id', required=True, location='args')
+        parser_copy.replace_argument('id', location='args')
         req = parser_copy.parse_args()
         try:
-            qs = Cabinet.objects(id=cab_id, collaborateurs__oid=req.get("id"))
+            if not req.get("id") is None:
+                qs = Cabinet.objects(id=cab_id, collaborateurs__oid=req.get("id"))
+                logging.debug(" -- ending get cabinet collaborateurs --")
+                return json.loads(qs.first().collaborateurs.get(oid=req.get("id")).to_json())
+            qs = Cabinet.objects(id=cab_id)
             logging.debug(" -- ending get cabinet collaborateurs --")
-            return json.loads(qs.first().collaborateurs.get(oid=req.get("id")).to_json())
+            return json.loads(qs.only("collaborateurs").to_json())
         except Exception as err:
             logging.error(err.args)
             return {'message': err.args }, 400
@@ -159,8 +163,8 @@ class CollaborateursAPI(Resource):
         req = parser_copy.parse_args()
         try:
             update_collaborateur = Cabinet.objects(id=cab_id, collaborateurs__oid=req.get("id")).first().collaborateurs.filter(oid=req.get("id"))
-            if cab is None:
-                raise ValidationErr("Cabinet not found")
+            if update_collaborateur is None:
+                raise ValidationErr("Cabinet or Collaborateur not found")
             update_collaborateur.update(
                 retrocession=req.get("retrocession"),
                 actif=req.get("actif"),
@@ -168,7 +172,7 @@ class CollaborateursAPI(Resource):
             )
             update_collaborateur.save()
             logging.debug(" -- ending put cabinet collaborateurs --")
-            return "Collaborateur mis à jour"
+            return json.loads(update_collaborateur.to_json())
         except Exception as err:
             logging.error(err.args)
             return {'message': err.args }, 400
