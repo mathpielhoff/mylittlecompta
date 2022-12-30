@@ -1,5 +1,7 @@
 import logging
 import json
+from datetime import date, datetime
+
 from xml.dom import ValidationErr
 from flask_restful import reqparse, Resource
 from flask_security import login_required, roles_accepted
@@ -94,8 +96,8 @@ class CabinetAPI(Resource):
                 qs = Cabinet.objects(collaborateurs__user=current_user.id)
                 return json.loads(qs.to_json())
             qs = Cabinet.objects(collaborateurs__user=current_user.id, id=req.get("id"))
-            return json.loads(qs.to_json())           
             logging.debug(" -- ending get cabinet --")
+            return json.loads(qs.to_json())           
         except Exception as err:
             logging.error(err.args)
             return {'message': err.args }, 400
@@ -134,14 +136,67 @@ class CabinetAPI(Resource):
 
 class CollaborateursAPI(Resource):
     @login_required
-    def get(self, id):
+    def get(self, cab_id):
         logging.debug(" -- starting get cabinet collaborateurs --")
-        req = parser.parse_args()
+        parser_copy = parser.copy()
+        parser_copy.replace_argument('id', required=True, location='args')
+        req = parser_copy.parse_args()
         try:
-            qs = Cabinet.objects(id=id, collaborateurs__oid=req.get("id"))
-            logging.debug(" -- ending get cabinet --")
+            qs = Cabinet.objects(id=cab_id, collaborateurs__oid=req.get("id"))
+            logging.debug(" -- ending get cabinet collaborateurs --")
             return json.loads(qs.first().collaborateurs.get(oid=req.get("id")).to_json())
         except Exception as err:
             logging.error(err.args)
             return {'message': err.args }, 400
     
+    @login_required
+    def put(self, cab_id):
+        logging.debug(" -- starting put cabinet collaborateurs --")
+        parser_copy = parser.copy()
+        parser_copy.replace_argument('id', required=True, location='args')
+        parser_copy.add_argument('retrocession', required=True, type=float, location='json')
+        parser_copy.add_argument('actif', required=True, type=bool, location='json')
+        req = parser_copy.parse_args()
+        try:
+            update_collaborateur = Cabinet.objects(id=cab_id, collaborateurs__oid=req.get("id")).first().collaborateurs.filter(oid=req.get("id"))
+            if cab is None:
+                raise ValidationErr("Cabinet not found")
+            update_collaborateur.update(
+                retrocession=req.get("retrocession"),
+                actif=req.get("actif"),
+                derniereDateMiseAJour = datetime.utcnow
+            )
+            update_collaborateur.save()
+            logging.debug(" -- ending put cabinet collaborateurs --")
+            return "Collaborateur mis à jour"
+        except Exception as err:
+            logging.error(err.args)
+            return {'message': err.args }, 400
+    
+    def post(self, cab_id):
+        logging.debug(" -- starting post cabinet collaborateurs --")
+        parser_copy = parser.copy()
+        parser_copy.add_argument('retrocession', required=True, type=float, location='json')
+        parser_copy.add_argument('actif', type=bool, location='json')
+        parser_copy.add_argument('username', required=True, location='json')
+        parser_copy.add_argument('dateDebutContrat', required=True, location='json')
+        parser_copy.add_argument('dateFinContrat', type=date, location='json')
+        req = parser_copy.parse_args()
+        try:
+            cab = Cabinet.objects(id=cab_id).first()
+            user=User.objects(username=req.get("username")).only('id').first()
+            if not Cabinet.objects(id=cab_id, collaborateurs__user=user).first() is None:
+                raise ValidationErr("Username already on cabinet")
+            new_collaborateur = Collaborateur(user=User.objects(
+                        username=req.get("username")).only('id').first(), 
+                        retrocession=req.get("retrocession"),
+                        dateDebutContrat=req.get("dateDebutContrat"),
+                        dateFinContrat=req.get("dateFinContrat"),
+                        actif = req.get("actif")
+                    )
+            cab.collaborateurs.append(new_collaborateur)
+            cab.save()
+            return json.loads(cab.to_json())
+        except Exception as err:
+            logging.error(err.args)
+            return {'message': err.args }, 400

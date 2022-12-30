@@ -22,7 +22,7 @@ app.config.from_object('config')
 # Adding RestFull
 api = Api(app)
 api.add_resource(CabinetAPI, '/api/cabinet')
-api.add_resource(CollaborateursAPI, '/api/cabinet/<string:id>/collaborateurs')
+api.add_resource(CollaborateursAPI, '/api/cabinet/<string:cab_id>/collaborateurs')
 
 
 # Adding Mongo

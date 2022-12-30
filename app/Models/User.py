@@ -11,8 +11,9 @@ class Collaborateur(EmbeddedDocument):
     user = ReferenceField('User')
     retrocession = DecimalField(min_value=0, max_value=100, precision=2)
     actif = BooleanField(default=True)
-    dateDebutContrat = DateTimeField
-    dateFinContrat = DateTimeField
+    dateDebutContrat = DateTimeField()
+    dateFinContrat = DateTimeField()
+    dateDeCreation = DateTimeField(default=datetime.utcnow)
     derniereDateMiseAJour = DateTimeField(default=datetime.utcnow)
 
 class Cabinet(Document):
