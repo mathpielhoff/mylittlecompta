@@ -1,6 +1,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
 ## Security Configuration
 # Your App secret key
 SECRET_KEY = 'ed66400a-8b65-43e1-b503-09dc95e8ee7c'
