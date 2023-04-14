@@ -6,13 +6,12 @@ from app.utils import _valide_codePostal, _valide_email, _valide_telephone
 class LienParente(Enum):
     MERE = 'Mère'
     PERE = 'Père'
-    GRANDSPARENTS = 'Grand-parent'
     TUTEUR = 'Tuteur'
     AUTRE = 'Autre'
 
 class Genre(Enum):
-    MONSIEUR = "Monsieur"
-    MADAME = "Madame"
+    MASCULIN = "Monsieur"
+    FEMININ = "Madame"
 
 class Adresse(EmbeddedDocument):
     ligne1 = StringField(required=True)
@@ -36,11 +35,12 @@ class Parent(EmbeddedDocument):
       
 # Model Patient
 class Patient(Document):
+    genre = EnumField(Genre)
     nom = StringField(required=True, max_length=60)
     prenom = StringField(required=True, max_length=60)
     dateDeNaissance = DateTimeField(required=True)
     telephone = StringField(max_length=10, validation=_valide_telephone)
-    parents = EmbeddedDocumentListField(Parent)
+    parents = EmbeddedDocumentListField(Parent, required=True)
     nomFacturation = StringField(required=True)
     adresseFacturation = EmbeddedDocumentField(Adresse, required=True)
-    cabinet = ReferenceField('Cabinet')
+    collaborateur = ReferenceField('Collaborateur')
